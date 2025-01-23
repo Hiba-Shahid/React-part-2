@@ -10,25 +10,27 @@ interface Todo {
 }
 
 const TodoList = () =>{
-
-    const [todos, setTodos] = useState<Todo[]>([]);
-    const [error, setError] = useState('');
-
-    useEffect(() =>{
+    const fetchTodos = async () => 
         axios
-        .get('https://jsonplaceholder.typicode.com/todos')
-        .then ((res)=> setTodos(res.data))
-        .catch((error)=> setError(error));
-    },[]);
-    if (error) return <p>{error}</p>;
+    .get('https://jsonplaceholder.typicode.com/todos')
+    .then (res=> res.data);
+
+
+    const {data: todos} = useQuery({
+        queryKey:['todos'],
+        queryFn: fetchTodos
+    })
+
+ 
+   // if (error) return <p>{error}</p>;
 
     return(
         <ul className="list-group">
-      {todos?.map((todo) => (
-        <li key={todo.id} className="list-group-item">
-          {todo.title}
-        </li>
-      ))}
-    </ul>
+        {todos?.map((todo: Todo) => (
+          <li key={todo.id} className="list-group-item">
+            {todo.title}
+          </li>
+        ))}
+          </ul>
     );
 }
