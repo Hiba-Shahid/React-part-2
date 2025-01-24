@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 
-interface Todo {
+export interface Todo {
     id: number;
     title: string;
+    userId: number;
     completed: boolean;
 }
 
