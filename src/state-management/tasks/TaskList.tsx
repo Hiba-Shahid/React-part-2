@@ -1,5 +1,5 @@
 
-import useAuth from "../hooks/useAuth";
+import useAuth from "../auth/useAuth";
 import { useContext } from "react"
 import TaskContext from "./tasksContext"
 
